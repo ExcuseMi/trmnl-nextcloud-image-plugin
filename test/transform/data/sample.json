@@ -1,0 +1,16 @@
+[
+  {
+    "name": "with image",
+    "input": {
+      "image_url": "https://backend.example.com/image/serve?path=%2Fremote.php%2Fdav%2Ffiles%2Fuser%2FPhotos%2Ftest.jpg",
+      "image_name": "test.jpg"
+    }
+  },
+  {
+    "name": "no image",
+    "input": {
+      "image_url": null,
+      "image_name": ""
+    }
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "name": "trmnl-transform-test",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "node run.js"
+  },
+  "dependencies": {}
+}

@@ -1,0 +1,13 @@
+services:
+  backend:
+    build: ./backend
+    container_name: trmnl-nextcloud-image-backend
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "${BACKEND_PORT:-8474}:8080"
+    volumes:
+      - data:/data
+
+volumes:
+  data:
