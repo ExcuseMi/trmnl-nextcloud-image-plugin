@@ -1,6 +1,7 @@
 {% template main %}
 {% liquid
   assign fill_screen = trmnl.plugin_settings.custom_fields_values.fill_screen
+  assign hide_titlebar = trmnl.plugin_settings.custom_fields_values.hide_titlebar
 %}
 <div class="layout layout--stretch layout--center gap--none m--0 p--0" style="position: relative;">
   {% if image_url %}
@@ -14,8 +15,10 @@
   {% endif %}
 </div>
 
+{% unless hide_titlebar == 'true' %}
 <div class="title_bar">
   <span class="title">Nextcloud</span>
   <span class="instance">{{ image_path | split: '/' | last }}</span>
 </div>
+{% endunless %}
 {% endtemplate %}
