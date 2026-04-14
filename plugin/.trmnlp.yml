@@ -25,12 +25,15 @@ variables:
         canvas_mode: "false"
         metadata_fields: '["date","camera","exposure","count"]'
   image_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/PNG_transparency_demonstration_1.png/280px-PNG_transparency_demonstration_1.png"
+  brightness_score: 72
   image_path: "/Photos/Wallpapers/sample.png"
   folder_count: 42
-  meta_date_ts: 1744588800
-  meta_camera: "Apple iPhone 15 Pro"
-  meta_exposure: "f/1.78 · 1/120s · ISO\u00A0400"
-  meta_focal: "24mm"
-  meta_megapixels: "12 MP"
-  meta_file_size: "3.2\u00A0MB"
-  meta_gps: "Brussels"
+  seq_position: 3
+  meta:
+    date_ts: 1744588800
+    camera: "Apple iPhone 15 Pro"
+    exposure: "f/1.78 · 1/120s · ISO\u00A0400"
+    focal: "24mm"
+    megapixels: "12 MP"
+    file_size: "3.2\u00A0MB"
+    gps: "Brussels"

@@ -101,11 +101,19 @@ async def image():
         except Exception:
             log.warning('Geocoding failed for %s', selected['path'])
 
+    seq_position = None
+    if mode == 'sequential':
+        seq_position = next(
+            (i + 1 for i, img in enumerate(images) if img['href'] == selected['href']),
+            None,
+        )
+
     log.info('Serving %s at %dx%d (%s)', selected['path'], width, height, mode)
     return jsonify({
         'image_url': image_url,
         'image_path': selected['path'],
         'folder_count': len(images),
+        'seq_position': seq_position,
         'metadata': metadata,
         'error': None,
     })

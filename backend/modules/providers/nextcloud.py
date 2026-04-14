@@ -3,8 +3,11 @@ from datetime import datetime
 from email.utils import parsedate_to_datetime
 from xml.etree import ElementTree
 
+import io
+
 import aiohttp
 import piexif
+from PIL import Image
 
 log = logging.getLogger(__name__)
 
@@ -209,6 +212,16 @@ async def fetch_photo_metadata(
                 lon = _dms(lon_r) * (-1 if lon_ref == 'W' else 1)
                 meta['gps_lat'] = lat
                 meta['gps_lon'] = lon
+        except Exception:
+            pass
+
+    # Brightness — decode EXIF thumbnail with Pillow
+    thumbnail_bytes = exif.get('thumbnail')
+    if thumbnail_bytes:
+        try:
+            img = Image.open(io.BytesIO(thumbnail_bytes)).convert('L')
+            pixels = list(img.getdata())
+            meta['brightness_score'] = round(sum(pixels) / len(pixels) / 255 * 100)
         except Exception:
             pass
 

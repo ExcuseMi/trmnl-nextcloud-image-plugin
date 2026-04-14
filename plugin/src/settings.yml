@@ -44,7 +44,7 @@ custom_fields:
 - keyname: selection_mode
   field_type: select
   name: Selection Mode
-  description: 'Sequential: cycle in order. Shuffle: random order, no repeats. Random: random each time. Newest/Oldest: by date modified.'
+  description: 'Sequential: cycle in order.<br />Shuffle: random order, no repeats.<br />Random: random each time.<br />Newest/Oldest: by date modified.'
   options:
   - Sequential: sequential
   - Shuffle: shuffle

@@ -24,22 +24,27 @@ function transform(data) {
     || ((m.gps_lat != null && m.gps_lon != null) ? _gps(m.gps_lat, m.gps_lon) : null);
 
   return {
-    image_url:    data.image_url || null,
-    image_path:   data.image_path || '',
-    folder_count: data.folder_count || 0,
-    error:        data.error || null,
-    // individual metadata fields — null when unavailable
-    meta_date_ts:   m.date_ts || null,
-    meta_camera:    camera,
-    meta_aperture:  aperture,
-    meta_shutter:   shutter,
-    meta_iso:       iso,
-    meta_exposure:  [aperture, shutter, iso].filter(Boolean).join('\u00A0· ') || null,
-    meta_focal:     focal,
-    meta_megapixels: megapixels,
-    meta_dimensions: dimensions,
-    meta_file_size:  fileSize,
-    meta_gps:        gps,
+    image: {
+      url:              data.image_url || null,
+      path:             data.image_path || '',
+      folder_count:     data.folder_count || 0,
+      seq_position:     data.seq_position || null,
+      brightness_score: m.brightness_score != null ? m.brightness_score : null,
+    },
+    meta: {
+      date_ts:    m.date_ts || null,
+      camera:     camera,
+      aperture:   aperture,
+      shutter:    shutter,
+      iso:        iso,
+      exposure:   [aperture, shutter, iso].filter(Boolean).join('\u00A0· ') || null,
+      focal:      focal,
+      megapixels: megapixels,
+      dimensions: dimensions,
+      file_size:  fileSize,
+      gps:        gps,
+    },
+    error: data.error || null,
   };
 }
 
