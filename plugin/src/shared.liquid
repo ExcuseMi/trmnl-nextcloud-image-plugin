@@ -3,51 +3,51 @@
   assign canvas_mode = trmnl.plugin_settings.custom_fields_values.canvas_mode
   assign fields = trmnl.plugin_settings.custom_fields_values.metadata_fields
 
-  assign meta_line = ""
-  assign sep = ""
-
-  if fields contains '"date"' and meta_date_ts
-    assign meta_line = meta_date_ts | date: "%b %-d, %Y"
-    assign sep = " · "
+  assign has_meta = false
+  if fields contains 'date' and meta_date_ts
+    assign has_meta = true
   endif
-  if fields contains '"camera"' and meta_camera
-    assign meta_line = meta_line | append: sep | append: meta_camera
-    assign sep = " · "
+  if fields contains 'camera' and meta_camera
+    assign has_meta = true
   endif
-  if fields contains '"exposure"' and meta_exposure
-    assign meta_line = meta_line | append: sep | append: meta_exposure
-    assign sep = " · "
+  if fields contains 'exposure' and meta_exposure
+    assign has_meta = true
   endif
-  if fields contains '"focal"' and meta_focal
-    assign meta_line = meta_line | append: sep | append: meta_focal
-    assign sep = " · "
+  if fields contains 'focal' and meta_focal
+    assign has_meta = true
   endif
-  if fields contains '"dimensions"' and meta_megapixels
-    assign meta_line = meta_line | append: sep | append: meta_megapixels
-    assign sep = " · "
+  if fields contains 'dimensions' and meta_megapixels
+    assign has_meta = true
   endif
-  if fields contains '"filesize"' and meta_file_size
-    assign meta_line = meta_line | append: sep | append: meta_file_size
-    assign sep = " · "
+  if fields contains 'filesize' and meta_file_size
+    assign has_meta = true
   endif
-  if fields contains '"gps"' and meta_gps
-    assign meta_line = meta_line | append: sep | append: meta_gps
-    assign sep = " · "
+  if fields contains 'gps' and meta_gps
+    assign has_meta = true
   endif
-  if fields contains '"count"'
-    assign meta_line = meta_line | append: sep | append: folder_count | append: " photos"
+  if fields contains 'count'
+    assign has_meta = true
   endif
 %}
-<div class="layout layout--stretch layout--center gap--none m--0 p--0" style="position: relative;">
+<div class="layout layout--stretch layout--center gap--none m--0 p--0">
   {% if image_url %}
-    <img class="image {% if canvas_mode == 'true' %}image--cover{% else %}image--contain{% endif %} image-dither rounded w--auto h--auto w--max-full h--max-full"
-      {% if canvas_mode == 'true' %}style="object-position: center;"{% endif %}
-      src="{{ image_url }}" alt="{{ image_path }}" />
-    {% if meta_line != blank and view < 3 %}
-      <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.65); padding: 5px 10px;">
-        <span style="color: #fff; font-size: 11px; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ meta_line }}</span>
-      </div>
-    {% endif %}
+    <div style="display: grid; width: 100%; min-height: 0; align-self: stretch;">
+      <img class="image image-dither {% unless canvas_mode == 'true' %}rounded{% endunless %}"
+        style="grid-area: 1/1; width: 100%; height: 100%; min-height: 0; object-fit: {% if canvas_mode == 'true' %}cover{% else %}contain{% endif %}; {% if canvas_mode == 'true' %}object-position: center;{% endif %}"
+        src="{{ image_url }}" alt="{{ image_path }}" />
+      {% if has_meta and view < 3 %}
+        <div style="grid-area: 1/1; align-self: end; display: flex; flex-wrap: wrap; gap: 4px; padding: 6px 8px;">
+          {% if fields contains 'date' and meta_date_ts %}<span class="label label--filled label--small">{{ meta_date_ts | date: "%b %-d, %Y" }}</span>{% endif %}
+          {% if fields contains 'camera' and meta_camera %}<span class="label label--filled label--small">{{ meta_camera }}</span>{% endif %}
+          {% if fields contains 'exposure' and meta_exposure %}<span class="label label--filled label--small">{{ meta_exposure }}</span>{% endif %}
+          {% if fields contains 'focal' and meta_focal %}<span class="label label--filled label--small">{{ meta_focal }}</span>{% endif %}
+          {% if fields contains 'dimensions' and meta_megapixels %}<span class="label label--filled label--small">{{ meta_megapixels }}</span>{% endif %}
+          {% if fields contains 'filesize' and meta_file_size %}<span class="label label--filled label--small">{{ meta_file_size }}</span>{% endif %}
+          {% if fields contains 'gps' and meta_gps %}<span class="label label--filled label--small">{{ meta_gps }}</span>{% endif %}
+          {% if fields contains 'count' %}<span class="label label--filled label--small">{{ folder_count }} photos</span>{% endif %}
+        </div>
+      {% endif %}
+    </div>
   {% else %}
     <div class="layout layout--col flex--center gap--small" style="align-items: center; justify-content: center;">
       <span class="label label--small">Nextcloud Image</span>
