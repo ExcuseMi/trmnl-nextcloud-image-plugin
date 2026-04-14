@@ -37,6 +37,13 @@ async def init_db():
                         state JSONB NOT NULL
                     )
                 """)
+                await conn.execute("""
+                    CREATE TABLE IF NOT EXISTS geocode_cache (
+                        key TEXT PRIMARY KEY,
+                        location TEXT,
+                        cached_at INTEGER NOT NULL
+                    )
+                """)
             log.info("PostgreSQL connection pool initialized")
             break
         except Exception as e:
