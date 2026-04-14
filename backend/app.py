@@ -24,15 +24,16 @@ async def health():
     return jsonify({'ok': True})
 
 
-@app.route('/image')
+@app.route('/image', methods=['POST'])
 @require_trmnl_ip
 async def image():
-    nextcloud_url = request.args.get('nextcloud_url', '').rstrip('/')
-    username = request.args.get('username', '')
-    token = request.args.get('token', '')
-    folder = request.args.get('folder', '/Photos')
-    mode = request.args.get('mode', 'sequential')
-    recursive = request.args.get('recursive', 'true').lower() != 'false'
+    body = await request.get_json(silent=True) or {}
+    nextcloud_url = body.get('nextcloud_url', '').rstrip('/')
+    username = body.get('username', '')
+    token = body.get('token', '')
+    folder = body.get('folder', '/Photos')
+    mode = body.get('mode', 'sequential')
+    recursive = str(body.get('recursive', 'true')).lower() != 'false'
 
     if not (nextcloud_url and username and token):
         return _error('Missing nextcloud_url, username, or token'), 400

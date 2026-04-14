@@ -3,12 +3,12 @@ strategy: polling
 no_screen_padding: 'yes'
 dark_mode: 'no'
 static_data: ''
-polling_verb: get
-framework_version: 
-serverless_language: 
-polling_url: https://trmnl.bettens.dev/nextcloud/image?nextcloud_url={{ trmnl.plugin_settings.custom_fields_values.nextcloud_url | url_encode }}&username={{ trmnl.plugin_settings.custom_fields_values.username | url_encode }}&token={{ trmnl.plugin_settings.custom_fields_values.app_token | url_encode }}&folder={{ trmnl.plugin_settings.custom_fields_values.folder_path | url_encode }}&mode={{ trmnl.plugin_settings.custom_fields_values.selection_mode }}&recursive={{ trmnl.plugin_settings.custom_fields_values.recursive }}
-polling_headers: ''
-polling_body: ''
+polling_verb: post
+framework_version:
+serverless_language:
+polling_url: https://trmnl.bettens.dev/nextcloud/image
+polling_headers: 'Content-Type: application/json'
+polling_body: '{"nextcloud_url":"{{ trmnl.plugin_settings.custom_fields_values.nextcloud_url }}","username":"{{ trmnl.plugin_settings.custom_fields_values.username }}","token":"{{ trmnl.plugin_settings.custom_fields_values.app_token }}","folder":"{{ trmnl.plugin_settings.custom_fields_values.folder_path }}","mode":"{{ trmnl.plugin_settings.custom_fields_values.selection_mode }}","recursive":"{{ trmnl.plugin_settings.custom_fields_values.recursive }}"}'
 id: 285470
 custom_fields:
 - keyname: author_info
