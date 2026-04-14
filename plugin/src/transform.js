@@ -92,7 +92,7 @@ function _bgClass(score) {
       break;
     }
   }
-  return `2bit:${cls} 4bit:${cls}`;
+  return `bg--white 2bit:${cls} 4bit:${cls}`;
 }
 
 function _gps(lat, lon) {

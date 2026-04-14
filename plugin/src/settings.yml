@@ -4,7 +4,7 @@ no_screen_padding: 'yes'
 dark_mode: 'no'
 static_data: ''
 polling_verb: post
-framework_version: 
+framework_version: 2.3.7
 serverless_language: 
 polling_url: https://trmnl.bettens.dev/nextcloud/image
 polling_headers: 'Content-Type: application/json'
