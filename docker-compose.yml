@@ -1,7 +1,7 @@
 services:
   backend:
     build: ./backend
-    container_name: trmnl-nextcloud-image-backend
+    container_name: trmnl-nextcloud-photos-backend
     restart: unless-stopped
     env_file: .env
     depends_on:
@@ -15,7 +15,7 @@ services:
 
   postgres:
     image: postgres:16-alpine
-    container_name: trmnl-nextcloud-image-postgres
+    container_name: trmnl-nextcloud-photos-postgres
     restart: unless-stopped
     environment:
       - POSTGRES_USER=${POSTGRES_USER:-postgres}
@@ -26,7 +26,7 @@ services:
 
   redis:
     image: redis:7-alpine
-    container_name: trmnl-nextcloud-image-redis
+    container_name: trmnl-nextcloud-photos-redis
     restart: unless-stopped
     command: redis-server --requirepass ${REDIS_PASSWORD:-password}
     volumes:

@@ -1,7 +1,7 @@
 services:
   test-transform:
     build: ./test/transform
-    container_name: trmnl-nextcloud-image-test-transform
+    container_name: trmnl-nextcloud-photos-test-transform
     volumes:
       - ./plugin/src/transform.js:/app/transform.js:ro,z
       - ./test/transform/data:/app/data:ro,z
