@@ -6,7 +6,7 @@ static_data: ''
 polling_verb: post
 framework_version: 2.3.7
 serverless_language: ''
-polling_url: https://trmnl.bettens.dev/nextcloud/image
+polling_url: "{{ trmnl.plugin_settings.custom_fields_values.backend_url | default: 'https://trmnl.bettens.dev/nextcloud/image' }}"
 polling_headers: 'Content-Type: application/json'
 polling_body: '{"nextcloud_url":"{{ trmnl.plugin_settings.custom_fields_values.nextcloud_url }}","username":"{{ trmnl.plugin_settings.custom_fields_values.username }}","token":"{{ trmnl.plugin_settings.custom_fields_values.app_token }}","folder":"{{ trmnl.plugin_settings.custom_fields_values.folder_path }}","mode":"{{ trmnl.plugin_settings.custom_fields_values.selection_mode }}","recursive":"{{ trmnl.plugin_settings.custom_fields_values.recursive }}","device":{"width":{{ trmnl.device.width | default: 800 }},"height":{{ trmnl.device.height | default: 480 }}}}'
 id: 285470
@@ -82,5 +82,13 @@ custom_fields:
   - Parent folder: folder
   - Photo count: count
   optional: true
+- keyname: backend_url
+  field_type: url
+  name: Custom Backend URL
+  description: 'Advanced: URL of your self-hosted backend. Default is <code>https://trmnl.bettens.dev/nextcloud/image</code>.'
+  placeholder: https://trmnl.bettens.dev/nextcloud/image
+  default: https://trmnl.bettens.dev/nextcloud/image
+  optional: true
+
 name: Nextcloud Photos
 refresh_interval: 15
