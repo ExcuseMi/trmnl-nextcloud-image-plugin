@@ -66,7 +66,7 @@ async def image():
         return _error(f'Nextcloud error {e.status}')
     except aiohttp.ClientConnectorError:
         return _error(f'Could not connect to Nextcloud at {nextcloud_url}')
-    except aiohttp.ServerTimeoutError:
+    except (asyncio.TimeoutError, aiohttp.ServerTimeoutError):
         return _error('Nextcloud connection timed out')
     except Exception as e:
         log.exception('Error listing images')
@@ -98,8 +98,9 @@ async def image():
 
     metadata = {}
     try:
-        metadata = await fetch_photo_metadata(
-            nextcloud_url, username, token, selected['path'], selected['file_id']
+        metadata = await asyncio.wait_for(
+            fetch_photo_metadata(nextcloud_url, username, token, selected['path'], selected['file_id']),
+            timeout=4,
         )
     except Exception:
         log.exception('Error fetching photo metadata for %s', selected['path'])

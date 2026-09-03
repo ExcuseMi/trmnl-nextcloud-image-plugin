@@ -77,7 +77,7 @@ async def list_images(
             data=PROPFIND_BODY,
             headers={'Depth': depth, 'Content-Type': 'application/xml'},
             auth=auth,
-            timeout=aiohttp.ClientTimeout(total=30),
+            timeout=aiohttp.ClientTimeout(total=8),
         ) as resp:
             resp.raise_for_status()
             content = await resp.read()
