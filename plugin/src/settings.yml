@@ -110,4 +110,5 @@ custom_fields:
   default: https://trmnl.bettens.dev/nextcloud/image
   optional: true
 name: Nextcloud Photos
+description:
 refresh_interval: 15
